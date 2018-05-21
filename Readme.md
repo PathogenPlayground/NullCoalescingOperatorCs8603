@@ -13,6 +13,8 @@ Property|Description
 
 (`FooProperty2` exists to make sure this problem isn't related to [dotnet/roslyn#9978](https://github.com/dotnet/roslyn/issues/9978).)
 
+Additionally, there are static and non-static versions of the properties.
+
 # Actual Behavior
 
 The compiler reports the following warning for `FooProperty` and `FooProperty2`:
@@ -20,6 +22,8 @@ The compiler reports the following warning for `FooProperty` and `FooProperty2`:
 ```
 warning CS8603: Possible null reference return.
 ```
+
+Additionally, the warning is also reported for `FooProperty4`, but only for the static version.
 
 # Expected Behavior
 

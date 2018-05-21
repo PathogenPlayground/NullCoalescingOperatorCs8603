@@ -2,15 +2,15 @@
 
 namespace NullCoalescingOperatorCs8603
 {
-    class Program
+    class TestWithoutStatic
     {
-        private static Foo? _foo = null;
-        public static Foo FooProperty
+        private Foo? _foo = null;
+        public Foo FooProperty
         {
             get => _foo ?? (_foo = new Foo()); // warning CS8603: Possible null reference return.
         }
 
-        public static Foo FooProperty2
+        public Foo FooProperty2
         {
             get
             {
@@ -19,25 +19,25 @@ namespace NullCoalescingOperatorCs8603
             }
         }
 
-        private static Foo? _foo3 = null;
-        public static Foo FooProperty3
+        private Foo? _foo3 = null;
+        public Foo FooProperty3
         {
             get => _foo3 ?? new Foo(); // No warning
         }
 
-        private static Foo? _foo4 = null;
-        public static Foo FooProperty4
+        private Foo? _foo4 = null;
+        public Foo FooProperty4
         {
             get
             {
                 if (_foo4 == null)
                 { _foo4 = new Foo(); }
 
-                return _foo4; // warning CS8603: Possible null reference return.
+                return _foo4; // No warning
             }
         }
 
-        static void Main(string[] args)
+        public TestWithoutStatic()
         {
             Console.WriteLine(FooProperty);
             Console.WriteLine(FooProperty);
@@ -47,9 +47,6 @@ namespace NullCoalescingOperatorCs8603
             Console.WriteLine(FooProperty3);
             Console.WriteLine(FooProperty4);
             Console.WriteLine(FooProperty4);
-            new TestWithoutStatic();
-            Console.WriteLine("Done.");
-            Console.ReadLine();
         }
     }
 }
