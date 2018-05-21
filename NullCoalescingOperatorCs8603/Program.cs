@@ -34,9 +34,22 @@ namespace NullCoalescingOperatorCs8603
             }
         }
 
+        private static Foo? _foo3 = null;
         public static Foo FooProperty3
         {
-            get => _foo ?? new Foo(); // No warning
+            get => _foo3 ?? new Foo(); // No warning
+        }
+
+        private static Foo? _foo4 = null;
+        public static Foo FooProperty4
+        {
+            get
+            {
+                if (_foo4 == null)
+                { _foo4 = new Foo(); }
+
+                return _foo4; // warning CS8603: Possible null reference return.
+            }
         }
 
         static void Main(string[] args)
@@ -47,6 +60,8 @@ namespace NullCoalescingOperatorCs8603
             Console.WriteLine(FooProperty2);
             Console.WriteLine(FooProperty3);
             Console.WriteLine(FooProperty3);
+            Console.WriteLine(FooProperty4);
+            Console.WriteLine(FooProperty4);
             Console.WriteLine("Done.");
             Console.ReadLine();
         }
